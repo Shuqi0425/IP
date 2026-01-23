@@ -1,17 +1,11 @@
 body {
-  background: #40513B;
-  color: #E5D9B6;
-  margin: 0;
-  min-height: 100vh;
+  background: #f3f8f3;
+  color: #222;
 }
 
 a {
     text-decoration: none;
-    color: #E5D9B6;
-}
-
-.profile_logo {
-    color: #184f36;
+    color: #222;
 }
 
 /* Top navigation */
@@ -21,7 +15,7 @@ a {
   align-items: center;
   padding: 12px 24px;
   background: transparent;
-  color: #E5D9B6;
+  color: #184f36;
 }
 
 /* menu button */
@@ -53,7 +47,7 @@ a {
   right: 0;
   width: 260px;
   height: 100%;
-  background: #628141;
+  background: #9BFFB1;
   padding: 40px 32px;
 }
 
@@ -62,13 +56,4 @@ a {
   font-size: 12px;
   margin-bottom: 40px;
   letter-spacing: 1px;
-}
-
-.img-wrapper {
-  text-align: center;      /* centers inline elements like img */
-}
-
-.img-wrapper img {
-  max-width: 100%;         /* optional: keep it responsive */
-  height: auto;
 }
