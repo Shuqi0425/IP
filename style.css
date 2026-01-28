@@ -10,10 +10,6 @@ a {
     color: #E5D9B6;
 }
 
-.profile_logo {
-    color: #184f36;
-}
-
 /* Top navigation */
 .top-nav {
   display: flex;
@@ -71,4 +67,49 @@ a {
 .img-wrapper img {
   max-width: 100%;         /* optional: keep it responsive */
   height: auto;
+}
+
+/* main area with card + arrows */
+.focus-main {
+  margin-top: 56px;             /* push below header */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  height: calc(100vh - 56px - 140px); /* leave space for confirm button */
+}
+
+/* arrows */
+#arrow {
+  background: transparent;
+  border: none;
+  color: #E5D9B6;
+  font-size: 60px;
+  cursor: pointer;
+}
+
+/* center rectangle "seed" card */
+.seed-card {
+  width: 260px;
+  height: 360px;
+  background: #E5D9B6;
+}
+
+/* confirm button area */
+.confirm-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 60px;
+}
+
+.confirm-btn {
+  width: 420px;
+  padding: 24px 0;
+  border-radius: 16px;
+  border: none;
+  background: #E5D9B6;
+  font-size: 24px;
+  font-style: italic;
+  cursor: pointer;
+  color: #E67E22;
 }
