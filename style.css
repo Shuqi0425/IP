@@ -113,3 +113,109 @@ a {
   cursor: pointer;
   color: #E67E22;
 }
+
+/* timer page body */
+.timer-screen {
+  background: #184f36; /* dark green */
+  color: white;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* timer main */
+.timer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+  margin-top: 56px; /* header space */
+}
+
+/* large timer text */
+.timer-display {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+/* green timer box */
+.timer-box {
+  width: 280px;
+  height: 280px;
+  background: #2c7a4b; /* lighter green */
+  border-radius: 12px;
+}
+
+/* bottom controls */
+.bottom-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.progress-dot {
+  width: 24px;
+  height: 24px;
+  background: #9BFFB1; /* bright green dot */
+  border-radius: 50%;
+}
+
+.pause-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.pause-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 36px; /* larger for icon */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+}
+
+/* hide icon during transitions */
+.timer-icon {
+  transition: all 0.2s ease;
+}
+
+.season-screen {
+  background: #184f36;           /* dark green */
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* center 4 columns */
+.season-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  height: 100vh;
+}
+
+/* each bar */
+.season-card {
+  width: 120px;
+  height: 320px;
+  background: #4f7f26;          /* mid green */
+  cursor: pointer;
+  transition: transform 0.2s ease, outline 0.2s ease;
+}
+
+/* selected state */
+.season-card.selected {
+  outline: 4px solid #f6f1c3;   /* light highlight */
+  transform: translateY(-10px); /* lift up slightly */
+}
