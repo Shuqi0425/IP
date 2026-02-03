@@ -28,27 +28,20 @@ const timerIcon = document.querySelector(".timer-icon");
 const progressDot = document.querySelector(".progress-dot");
 
 if (timerDisplay && pauseBtn && timerIcon) {
-  // RestDB config  (ip-js-sq is the collection)
+  // RestDB config
   const API_BASE = "https://drsadrabbit-d6de.restdb.io/rest";
   const API_KEY = "695ca6b37ba9c9d384784748";
   const TIMER_COLLECTION = "ip-js-sq";
   const USER_ID = "student-1";
 
-  const timerSeconds = 25 * 60;
-  let endTime = null;          // timestamp in ms
+  const timerSeconds = 25 * 60; // 1500
+  let remaining = timerSeconds;
   let isPaused = false;
   let timerInterval = null;
   let timerDocId = null;
   let saveCounter = 0;
 
-  function getRemainingSeconds() {
-    if (!endTime) return timerSeconds;
-    const diff = Math.floor((endTime - Date.now()) / 1000);
-    return diff > 0 ? diff : 0;
-  }
-
   function updateTimer() {
-    const remaining = getRemainingSeconds();
     const minutes = Math.floor(remaining / 60);
     const seconds = remaining % 60;
     timerDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
@@ -68,7 +61,7 @@ if (timerDisplay && pauseBtn && timerIcon) {
   function saveTimerToServer() {
     const payload = {
       userId: USER_ID,
-      endTime: endTime,       // number (Date.now())
+      remaining: remaining,
       isPaused: isPaused
     };
 
@@ -106,11 +99,10 @@ if (timerDisplay && pauseBtn && timerIcon) {
         if (Array.isArray(docs) && docs.length > 0) {
           const doc = docs[0];
           timerDocId = doc._id;
-          // ensure endTime is a number
-          const loadedEndTime = typeof doc.endTime === "string"
-            ? parseInt(doc.endTime, 10)
-            : doc.endTime;
-          callback(loadedEndTime, doc.isPaused);
+          const loadedRemaining = typeof doc.remaining === "string"
+            ? parseInt(doc.remaining, 10)
+            : doc.remaining;
+          callback(loadedRemaining, doc.isPaused);
         } else {
           callback(null, null);
         }
@@ -124,12 +116,13 @@ if (timerDisplay && pauseBtn && timerIcon) {
   // ---------- timer loop ----------
   function startLoop() {
     if (timerInterval) clearInterval(timerInterval);
-    timerInterval = setInterval(() => {
-      const remaining = getRemainingSeconds();
 
+    timerInterval = setInterval(() => {
       if (!isPaused && remaining > 0) {
+        remaining--;
         updateTimer();
 
+        // save every 5 seconds
         saveCounter++;
         if (saveCounter >= 5) {
           saveCounter = 0;
@@ -137,13 +130,16 @@ if (timerDisplay && pauseBtn && timerIcon) {
         }
       } else {
         updateTimer();
-        if (remaining <= 0) clearInterval(timerInterval);
+        if (remaining <= 0) {
+          clearInterval(timerInterval);
+          saveTimerToServer();
+        }
       }
     }, 1000);
   }
 
+  // ---------- pause / resume ----------
   pauseBtn.addEventListener("click", () => {
-    const remaining = getRemainingSeconds();
     if (remaining <= 0) return;
 
     isPaused = !isPaused;
@@ -152,8 +148,6 @@ if (timerDisplay && pauseBtn && timerIcon) {
       timerIcon.className = "timer-icon fa-solid fa-play";
       pauseBtn.title = "Resume";
     } else {
-      // resume: set new endTime based on remaining seconds
-      endTime = Date.now() + remaining * 1000;
       timerIcon.className = "timer-icon fa-solid fa-pause";
       pauseBtn.title = "Pause";
     }
@@ -162,13 +156,12 @@ if (timerDisplay && pauseBtn && timerIcon) {
   });
 
   // ---------- init from API ----------
-  loadTimerFromServer((savedEndTime, savedPaused) => {
-    if (savedEndTime) {
-      endTime = savedEndTime;
+  loadTimerFromServer((savedRemaining, savedPaused) => {
+    if (savedRemaining !== null && savedRemaining > 0) {
+      remaining = savedRemaining;
       isPaused = !!savedPaused;
     } else {
-      // start new timer
-      endTime = Date.now() + timerSeconds * 1000;
+      remaining = timerSeconds;
       isPaused = false;
     }
 
