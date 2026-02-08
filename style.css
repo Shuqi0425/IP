@@ -219,3 +219,49 @@ a {
   outline: 4px solid #f6f1c3;   /* light highlight */
   transform: translateY(-10px); /* lift up slightly */
 }
+
+.forest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 15px;                            
+    width: 320px;                        
+    margin: 40px auto;  
+}
+
+.grid-slot {
+    aspect-ratio: 1 / 1;                
+    background: rgba(229, 217, 182, 0.2); 
+    border: 2px dashed #E5D9B6;        
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.grid-slot.active {
+    background: #c6eb7c !important;   
+    border: 2px solid #E5D9B6;
+    transform: scale(1.05);
+}
+
+
+/* 3D on focus page*/
+.focus-3d-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.config-btn {
+    background: transparent;
+    border: none;
+    color: #E5D9B6;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: underline;
+}
+
+.confirm-btn {
+    margin-top: 30px;
+    background-color: #E5D9B6;
+    color: #40513B;
+}

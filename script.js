@@ -54,6 +54,8 @@ if (timerDisplay && pauseBtn && timerIcon) {
     if (remaining <= 0 && !isPaused) {
       timerIcon.className = "timer-icon fa-solid fa-check";
       pauseBtn.title = "Complete!";
+
+      savePlantToForest();
     }
   }
 
@@ -191,7 +193,13 @@ if (seasonCards.length) {
       // store choice for later pages
       const chosen = card.dataset.season;
       localStorage.setItem("chosenSeason", chosen);
+
+      console.log("Chosen season:", chosen);
+      
       // could also send to your API here
+      setTimeout(() => {
+        window.location.href = "focus_main.html";
+      }, 400);
     });
   });
 
@@ -204,3 +212,83 @@ if (seasonCards.length) {
     if (savedCard) savedCard.classList.add("selected");
   }
 }
+
+
+
+// ------------------ Position selection page ------------------
+const placeGrid = document.getElementById("place-grid");
+const confirmBtn = document.getElementById("confirm-btn");
+let selectedIndex = null;
+
+if (placeGrid && confirmBtn) {
+  confirmBtn.disabled = true;
+  
+  for (let i = 0; i <= 15; i++) {
+    const slot = document.createElement("div");
+    slot.className = "grid-slot";
+    slot.dataset.place = i;
+    
+    slot.addEventListener("click", () => {
+      // Deselect all slots
+      document.querySelectorAll(".grid-slot").forEach(s => s.classList.remove("active"));
+      slot.classList.add("active");
+      
+      selectedIndex = i;
+      confirmBtn.disabled = false;
+      confirmBtn.style.background = "#c6eb7c";
+    });
+
+    placeGrid.appendChild(slot);
+  }
+
+  confirmBtn.addEventListener("click", () => {
+    if (selectedIndex !== null) {
+      console.log("Saving position:", selectedIndex);
+      localStorage.setItem("chosenPosition", selectedIndex);
+      window.location.href = "focus_timer.html";
+    }
+  });
+}
+
+function savePlantToForest() {
+  const finalPosition = localStorage.getItem('chosenPosition');
+  const finalPlant = localStorage.getItem('chosenPlant');
+  const finalSeason = localStorage.getItem('chosenSeason');
+
+  const payload = {
+    userId: "student-1",
+    plantType: finalPlant,
+    positionIndex: parseInt(finalPosition),
+    season: finalSeason,
+    timestamp: new Date().toISOString()
+  };
+
+    //send to RestDB
+    fetch("https://drsadrabbit-d6de.restdb.io/rest/ip-js-forest", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-apikey": "695ca6b37ba9c9d384784748",
+      },
+      body: JSON.stringify(payload)
+    }).then(() => {
+      window.location.href = "forest.html";
+    });
+}
+
+
+// --- Focus Main page START Button ---
+document.addEventListener("DOMContentLoaded", () => {
+    const startFocusBtn = document.getElementById("start-focus-btn");
+
+    if (startFocusBtn) {
+        console.log("Found Start Focus Button!"); 
+        startFocusBtn.addEventListener("click", (e) => {
+            e.preventDefault(); 
+            console.log("Redirecting to position page...");
+            window.location.href = "position.html";
+        });
+    } else {
+        console.warn("Start Focus Button NOT found on this page.");
+    }
+});
