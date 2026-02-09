@@ -184,24 +184,17 @@ const seasonCards = document.querySelectorAll(".season-card");
 
 if (seasonCards.length) {
   seasonCards.forEach(card => {
-    card.addEventListener("click", () => {
-      // remove selection from all
-      seasonCards.forEach(c => c.classList.remove("selected"));
-      // select this one
-      card.classList.add("selected");
-
-      // store choice for later pages
+  card.addEventListener("click", () => {
+    if (card.classList.contains("selected")) {
       const chosen = card.dataset.season;
       localStorage.setItem("chosenSeason", chosen);
-
-      console.log("Chosen season:", chosen);
-      
-      // could also send to your API here
-      setTimeout(() => {
-        window.location.href = "focus_main.html";
-      }, 400);
-    });
+      window.location.href = "focus_main.html";
+    } else {
+      seasonCards.forEach(c => c.classList.remove("selected"));
+      card.classList.add("selected");
+    }
   });
+});
 
   // restore previous choice if saved
   const savedSeason = localStorage.getItem("chosenSeason");
