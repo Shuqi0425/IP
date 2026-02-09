@@ -285,3 +285,82 @@ document.addEventListener("DOMContentLoaded", () => {
         console.warn("Start Focus Button NOT found on this page.");
     }
 });
+
+// --- Friend garden ---
+const commonGrid = document.getElementById("common-grid");
+const startCommonBtn = document.getElementById("start-common-focus");
+
+let selectedCommonIndex = null; 
+
+if (commonGrid) {
+    // url friend name
+    const params = new URLSearchParams(window.location.search);
+    const friendName = params.get('friend') || "Friend";
+    
+    const gardenTitle = document.getElementById("garden-title");
+    if (gardenTitle) {
+        gardenTitle.innerText = `With ${friendName}`;
+    }
+
+    // 5x5 grid
+    for (let i = 0; i < 25; i++) {
+        const slot = document.createElement("div");
+        slot.className = "grid-slot-small";
+        slot.dataset.place = i; 
+        
+        slot.addEventListener("click", () => {
+            // cancel before highlight
+            document.querySelectorAll(".grid-slot-small").forEach(s => s.classList.remove("active"));
+            // highlight selected
+            slot.classList.add("active");
+            
+
+            selectedCommonIndex = i; 
+            
+            // activete start button
+            if (startCommonBtn) {
+                startCommonBtn.disabled = false;
+                startCommonBtn.style.background = "#c8f7a0"; 
+                startCommonBtn.style.color = "#40513B"; // 记得改文字颜色
+            }
+        });
+
+        commonGrid.appendChild(slot);
+    }
+
+    // Start common focus button
+    if (startCommonBtn) {
+        startCommonBtn.disabled = true; // start disabled
+        
+        startCommonBtn.addEventListener("click", () => {
+            if (selectedCommonIndex !== null) {
+                const params = new URLSearchParams(window.location.search);
+                const friendName = params.get('friend') || "Friend";
+                
+                console.log("Saving common position:", selectedCommonIndex);
+                
+                // save to localStorage
+                localStorage.setItem("chosenPosition", selectedCommonIndex);
+                
+                // common timer page
+                window.location.href = `common_timer.html?friend=${friendName}`;
+            } else {
+                alert("Please choose a spot in the garden first!");
+            }
+        });
+    }
+}
+
+// --- Common Timer Page Init ---
+document.addEventListener("DOMContentLoaded", () => {
+    const friendLabel = document.getElementById("friend-name-label");
+    const friendCircle = document.getElementById("friend-avatar-circle");
+
+    if (friendLabel && friendCircle) {
+        const params = new URLSearchParams(window.location.search);
+        const friendName = params.get('friend') || "Friend";
+        
+        friendLabel.innerText = friendName;
+        friendCircle.innerText = friendName.charAt(0).toUpperCase();
+    }
+});

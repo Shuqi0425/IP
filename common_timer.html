@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Forest Focus App</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://kit.fontawesome.com/65a93d52da.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Top navigation -->
+  <header class="top-nav">
+        <a href="profile.html"><span class="fa-solid fa-user"></span></a>
+        <span id="menu-btn" class="fa-solid fa-bars" style="float: right;"></span>
+  </header>
+
+  <div id="menu-overlay" class="menu-overlay">
+      <div class="menu-panel">
+          <a href="index.html"><p class="menu-item">FOREST</p></a>
+          <a href="focus_main.html"><p class="menu-item">FOCUS</p></a>
+          <a href="friends.html"><p class="menu-item">FRIENDS</p></a>
+      </div>
+  </div>
+  
+  <main class="timer-main">
+  <div class="common-avatars">
+    <div class="avatar-wrapper">
+      <div class="user-avatar me" id="my-avatar-circle"></div>
+      <span>You</span>
+    </div>
+    
+    <div class="connect-icon">
+      <span class="fa-solid fa-link"></span>
+    </div>
+
+    <div class="avatar-wrapper">
+      <div class="user-avatar friend" id="friend-avatar-circle"></div>
+      <span id="friend-name-label">Friend</span>
+    </div>
+  </div>
+
+  <div class="timer-display" id="timer-display">25:00</div>
+  
+  <div class="timer-box"></div>
+  
+  <button id="pause-btn" class="pause-btn">
+    <span class="timer-icon fa-solid fa-pause"></span>
+  </button>
+</main>
+
+  <script src="script.js"></script>
+</body>
+</html>
