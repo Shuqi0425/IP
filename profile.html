@@ -7,20 +7,48 @@
   <script src="https://kit.fontawesome.com/65a93d52da.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- Top navigation -->
-  <header class="top-nav" style="float: right;">
-        <span id="menu-btn" class="fa-solid fa-bars"></span>
+  
+  <header class="top-nav">
+    <a href="index.html"><span class="fa-solid fa-chevron-left"></span></a>
+    <h2>My Profile</h2>
+    <span id="menu-btn" class="fa-solid fa-bars"></span>
   </header>
 
-    <div id="menu-overlay" class="menu-overlay">
-        <div class="menu-panel">
-            <a href="index.html"><p class="menu-item">FOREST</p></a>
-            <a href="focus_main.html"><p class="menu-item">FOCUS</p></a>
-            <a href="friends.html"><p class="menu-item">FRIENDS</p></a>
-        </div>
-    </div>
-    
+  <main class="profile-main">
+    <section class="user-card">
+      <div class="profile-avatar">S1</div>
+      <h3 class="username">User-Name</h3>
+    </section>
 
+    <section class="stats-container">
+      <div class="stat-item">
+        <span class="stat-value" id="total-focus-time">120</span>
+        <span class="stat-label">Hours</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value" id="total-trees">48</span>
+        <span class="stat-label">Trees</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-value">12</span>
+        <span class="stat-label">Days Streak</span>
+      </div>
+    </section>
+
+    <section class="achievements">
+      <h4>Achievements</h4>
+      <div class="badge-row">
+        <div class="badge-item"><span class="fa-solid fa-seedling"></span><p>First Tree</p></div>
+        <div class="badge-item"><span class="fa-solid fa-fire"></span><p>7 Day Streak</p></div>
+        <div class="badge-item locked"><span class="fa-solid fa-tree"></span><p>Forest King</p></div>
+        <div class="badge-item locked"><span class="fa-solid fa-user-group"></span><p>Socializer</p></div>
+      </div>
+    </section>
+
+    <section class="profile-actions">
+      <button class="logout-btn">Log Out</button>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
