@@ -60,14 +60,26 @@ a {
   letter-spacing: 1px;
 }
 
+/* image wrapper */
 .img-wrapper {
-  text-align: center;      /* centers inline elements like img */
+  flex: 1;                  
+  display: flex;            
+  justify-content: center;  
+  align-items: center;
+  padding-top: 180px;      
+  box-sizing: border-box;
 }
 
 .img-wrapper img {
-  max-width: 100%;         /* optional: keep it responsive */
-  height: auto;
+  width: 60%;              
+  max-width: 400px;        
+  height: auto;            
+  
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+  animation: float 4s ease-in-out infinite;
 }
+
+
 
 /* main area with card + arrows */
 .focus-main {
@@ -467,4 +479,71 @@ a {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+
+
+
+/* season choose */
+.platter-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px; 
+    padding-top: 200px; 
+}
+
+.platter-isometric {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    transform: rotateX(60deg) rotateZ(-45deg);
+    transform-style: preserve-3d; 
+    left: -75px; 
+}
+
+.season-slice {
+    position: absolute;
+    width: 225px;
+    height: 225px;
+    background-size: contain;    
+    background-repeat: no-repeat;
+    background-position: center;
+    transform: rotateZ(45deg) rotateX(-60deg);
+    transform-origin: bottom center; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+}
+
+/* hover*/
+.season-slice:hover {
+    transform: rotateZ(45deg) rotateX(-60deg) translateY(-45px);
+    filter: drop-shadow(0 30px 15px rgba(0,0,0,0.3));
+    z-index: 10; 
+}
+
+.spring { 
+    top: 22.5px; left: 15px; 
+    background-image: url('image/spring.png'); 
+}
+.summer { 
+    top: 0; left: 210px; 
+    background-image: url('image/summer.png'); 
+}
+.autumn { 
+    top: 180px; left: 27px; 
+    background-image: url('image/autumn.png'); 
+}
+.winter { 
+    top: 195px; left: 195px; 
+    background-image: url('image/winter.png'); 
+}
+
+/* words */
+.season-slice span {
+    display: block;
+    font-size: 0.9rem; 
+    text-align: center;
 }

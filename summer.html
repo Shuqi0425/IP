@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Forest</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script src="https://kit.fontawesome.com/65a93d52da.js" crossorigin="anonymous"></script>
+    <style>
+        .position-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #40513B;
+        }
+
+        .forest-container {
+            flex: 1;
+            perspective: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: -50px;
+        }
+
+        .forest-grid {
+            position: relative;
+            width: 360px;
+            height: 360px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 10px;
+            transform: rotateX(60deg) rotateZ(-45deg);
+            transform-style: preserve-3d;
+        }
+
+        .grid-slot {
+            background: rgba(229, 217, 182, 0.1);
+            border: 1px solid rgba(229, 217, 182, 0.3);
+            border-radius: 4px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .tree-container {
+            position: absolute;
+            bottom: 40%; 
+            left: 30%;
+            width: 100px; 
+            height: 140px; 
+            margin-left: -50px; 
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: bottom center;
+            transform: rotateZ(45deg) rotateX(-90deg) scale(1.2);
+            transform-origin: bottom center;
+            pointer-events: none;
+        }
+
+        .page-title {
+            color: #E5D9B6;
+            margin-top: 20px;
+            font-family: sans-serif;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header class="top-nav">
+        <a href="index.html"><span class="fa-solid fa-chevron-left"></span></a>
+        <span id="menu-btn" class="fa-solid fa-bars" style="float: right;"></span>
+    </header>
+
+    <main class="position-page">
+        <h1 class="page-title">SPRING</h1>
+        
+        <div class="forest-container">
+            <div class="forest-grid" id="place-grid"></div>
+        </div>
+        
+        <div class="confirm-wrapper">
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('place-grid');
+            
+            for (let i = 0; i < 16; i++) {
+                const slot = document.createElement('div');
+                slot.classList.add('grid-slot');
+                slot.id = `slot-${i}`;
+                grid.appendChild(slot);
+            }
+
+            const savedIndex = localStorage.getItem('selectedSlot') || 5; 
+            plantTree(savedIndex, 'image/spring_tree.png');
+        });
+
+        function plantTree(index, imgUrl) {
+            const targetSlot = document.getElementById(`slot-${index}`);
+            if (targetSlot) {
+                const tree = document.createElement('div');
+                tree.classList.add('tree-container');
+                tree.style.backgroundImage = `url('${imgUrl}')`;
+                targetSlot.appendChild(tree);
+            }
+        }
+    </script>
+</body>
+</html>
