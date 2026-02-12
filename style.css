@@ -37,7 +37,7 @@ a {
 .menu-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.3);
   display: none;          /* hidden by default */
   z-index: 900;
 }
@@ -102,9 +102,13 @@ a {
 
 /* center rectangle "seed" card */
 .seed-card {
-  width: 260px;
-  height: 360px;
-  background: #E5D9B6;
+  width: 200px;
+  height: 300px;
+  background-image: url('image/seedblue.png'); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
 }
 
 /* confirm button area */
@@ -213,23 +217,29 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
   height: 100vh;
 }
 
-/* each bar */
+/* season choose card*/
 .season-card {
-  width: 120px;
-  height: 320px;
-  background: #4f7f26;          /* mid green */
-  cursor: pointer;
+  width: 300px;   
+  height: 600px;  
+  background-size: cover;
+  background-position: center;
   transition: transform 0.2s ease, outline 0.2s ease;
+  border-radius: 12px;
 }
+
+.season-card[data-season="spring"] { background-image: url('image/c_spring.png'); }
+.season-card[data-season="summer"] { background-image: url('image/c_summer.png'); }
+.season-card[data-season="autumn"] { background-image: url('image/c_autumn.png'); }
+.season-card[data-season="winter"] { background-image: url('image/c_winter.png'); }
 
 /* selected state */
 .season-card.selected {
   outline: 4px solid #f6f1c3;   /* light highlight */
-  transform: translateY(-10px); /* lift up slightly */
+  transform: translateY(-15px); /* lift up slightly */
 }
 
 .forest-grid {

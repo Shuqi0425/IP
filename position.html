@@ -22,6 +22,23 @@
         </div>
     </main>
 
+    <script>
+        confirmBtn.addEventListener('click', () => {
+    if (selectedIndex !== null) {
+        localStorage.setItem('selectedSlot', selectedIndex);
+        
+        confirmBtn.innerText = "Focusing... (Demo)";
+        confirmBtn.style.background = "#9BFFB1";
+        
+        setTimeout(() => {
+            window.location.href = 'spring.html'; 
+        }, 1500); 
+    } else {
+        alert('Please select a position!');
+    }
+});
+    </script>
+
     <div id="menu-overlay" class="menu-overlay">...</div>
 
     <script src="script.js"></script>

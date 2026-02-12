@@ -36,8 +36,7 @@
         }
 
         .grid-slot {
-            background: rgba(229, 217, 182, 0.1);
-            border: 1px solid rgba(229, 217, 182, 0.3);
+            background: rgba(16, 82, 33, 0.1);
             border-radius: 4px;
             position: relative;
             transform-style: preserve-3d;
@@ -59,17 +58,21 @@
         }
 
         .page-title {
+            position: absolute;
             color: #E5D9B6;
             margin-top: 20px;
             font-family: sans-serif;
             letter-spacing: 2px;
+        }
+
+        .top-nav {
+            position: absolute; 
         }
     </style>
 </head>
 <body>
     <header class="top-nav">
         <a href="index.html"><span class="fa-solid fa-chevron-left"></span></a>
-        <span id="menu-btn" class="fa-solid fa-bars" style="float: right;"></span>
     </header>
 
     <main class="position-page">
@@ -85,28 +88,21 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const grid = document.getElementById('place-grid');
-            
-            for (let i = 0; i < 16; i++) {
-                const slot = document.createElement('div');
-                slot.classList.add('grid-slot');
-                slot.id = `slot-${i}`;
-                grid.appendChild(slot);
-            }
+    const grid = document.getElementById('place-grid');
+    
+    for (let i = 0; i < 16; i++) {
+        const slot = document.createElement('div');
+        slot.classList.add('grid-slot');
+        slot.id = `slot-${i}`;
+        grid.appendChild(slot);
+    }
 
-            const savedIndex = localStorage.getItem('selectedSlot') || 5; 
-            plantTree(savedIndex, 'image/spring_tree.png');
-        });
-
-        function plantTree(index, imgUrl) {
-            const targetSlot = document.getElementById(`slot-${index}`);
-            if (targetSlot) {
-                const tree = document.createElement('div');
-                tree.classList.add('tree-container');
-                tree.style.backgroundImage = `url('${imgUrl}')`;
-                targetSlot.appendChild(tree);
-            }
-        }
+    const savedIndex = localStorage.getItem('selectedSlot');
+    
+    if (savedIndex !== null) {
+        plantTree(savedIndex, 'image/spring_tree.png');
+    }
+});
     </script>
 </body>
 </html>

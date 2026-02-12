@@ -364,3 +364,27 @@ document.addEventListener("DOMContentLoaded", () => {
         friendCircle.innerText = friendName.charAt(0).toUpperCase();
     }
 });
+
+// seed selection page (focus.html)
+document.addEventListener("DOMContentLoaded", () => {
+  const seedCard = document.querySelector(".seed-card");
+  const arrows = document.querySelectorAll(".focus-main .fa-solid");
+  const demoImages = [
+    'image/seedblue.png', 
+    'image/seedpink.png',
+    'image/seedyellow.png'
+  ];
+  
+  let currentIndex = 0;
+  if (seedCard && arrows.length > 0) {
+    arrows.forEach(arrow => {
+      arrow.style.cursor = "pointer";
+      arrow.addEventListener("click", () => {
+        currentIndex = currentIndex === 0 ? 1 : currentIndex === 1 ? 2 : 0;
+        
+        // change pic
+        seedCard.style.backgroundImage = `url('${demoImages[currentIndex]}')`;
+      });
+    });
+  }
+});
