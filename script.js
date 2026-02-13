@@ -257,6 +257,12 @@ if (placeGrid && confirmBtn) {
 }
 
 function savePlantToForest() {
+    // loading animation  
+    const overlay = document.getElementById("loading-overlay");
+    if (overlay) {
+        overlay.style.display = "flex";
+    }
+
     // get data from localStorage
     const finalPosition = localStorage.getItem('chosenPosition'); // corresponds to grid index
     const finalSeason = localStorage.getItem('chosenSeason') || 'spring'; 
