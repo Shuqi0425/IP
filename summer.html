@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Spring Forest</title>
+    <title>Summer Forest</title>
     <link rel="stylesheet" href="style.css"> 
     <script src="https://kit.fontawesome.com/65a93d52da.js" crossorigin="anonymous"></script>
     <style>
@@ -11,83 +11,38 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: #90b983;
+            background: #4A7C59; 
         }
-
-        .forest-container {
-            flex: 1;
-            perspective: 1200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding-top: -50px;
-        }
-
+        .forest-container { flex: 1; perspective: 1200px; display: flex; justify-content: center; align-items: center; padding-top: -50px; }
         .forest-grid {
-            position: relative;
-            width: 360px;
-            height: 360px;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(4, 1fr);
-            gap: 10px;
-            transform: rotateX(60deg) rotateZ(-45deg);
-            transform-style: preserve-3d;
+            position: relative; width: 360px; height: 360px; display: grid;
+            grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 1fr);
+            gap: 10px; transform: rotateX(60deg) rotateZ(-45deg); transform-style: preserve-3d;
         }
-
-        .grid-slot {
-            background: rgba(16, 82, 33, 0.1);
-            border-radius: 4px;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-
+        .grid-slot { background: rgba(255, 255, 255, 0.1); border-radius: 4px; position: relative; transform-style: preserve-3d; }
+        
         .tree-container {
-            position: absolute;
-            bottom: 40%; 
-            left: 30%;
-            width: 100px; 
-            height: 140px; 
-            margin-left: -50px; 
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: bottom center;
+            position: absolute; bottom: 40%; left: 30%; width: 100px; height: 140px; 
+            margin-left: -50px; background-size: contain; background-repeat: no-repeat;
+            /* 2.5d */
             transform: rotateZ(45deg) rotateX(-90deg) scale(1.2);
             transform-origin: bottom center;
-            pointer-events: none;
         }
-
-        .page-title {
-            position: absolute;
-            color: #E5D9B6;
-            margin-top: 20px;
-            font-family: sans-serif;
-            letter-spacing: 2px;
-        }
-
-        .top-nav {
-            position: absolute; 
-        }
+        .top-nav { position: absolute; left: 20px; top: 20px; z-index: 10; }
     </style>
 </head>
 <body>
     <header class="top-nav">
         <a href="index.html"><span class="fa-solid fa-chevron-left"></span></a>
     </header>
-
     <main class="position-page">
-        <h1 class="page-title">SPRING</h1>
-        
+        <h1 class="page-title">SUMMER</h1>
         <div class="forest-container">
             <div class="forest-grid" id="place-grid"></div>
         </div>
-        
-        <div class="confirm-wrapper">
-        </div>
     </main>
-
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('place-grid');
     // grids
     for (let i = 0; i < 16; i++) {
@@ -117,14 +72,6 @@
         }
     });
 });
-</script>
-
-<style>
-@keyframes grow {
-    from { transform: rotateZ(45deg) rotateX(-90deg) scale(0); opacity: 0; }
-    to { transform: rotateZ(45deg) rotateX(-90deg) scale(1.2); opacity: 1; }
-}
-</style>
-
+    </script>
 </body>
 </html>

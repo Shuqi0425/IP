@@ -175,6 +175,18 @@ if (timerDisplay && pauseBtn && timerIcon) {
       pauseBtn.title = "Pause";
     }
 
+    // DEMO: skip button to jump to end
+    const skipBtn = document.getElementById("demo-skip-btn");
+  if (skipBtn) {
+      skipBtn.addEventListener("click", () => {
+          remaining = 0; // jump to end
+          updateTimer(); 
+          
+          skipBtn.innerText = "Completed!";
+          skipBtn.style.opacity = "0.5";
+      });
+  }
+
     updateTimer();
     startLoop();
   });
@@ -236,36 +248,52 @@ if (placeGrid && confirmBtn) {
 
   confirmBtn.addEventListener("click", () => {
     if (selectedIndex !== null) {
-      console.log("Saving position:", selectedIndex);
+      // save choice to localStorage
       localStorage.setItem("chosenPosition", selectedIndex);
+      // transition to timer page
       window.location.href = "focus_timer.html";
     }
   });
 }
 
 function savePlantToForest() {
-  const finalPosition = localStorage.getItem('chosenPosition');
-  const finalPlant = localStorage.getItem('chosenPlant');
-  const finalSeason = localStorage.getItem('chosenSeason');
+    // get data from localStorage
+    const finalPosition = localStorage.getItem('chosenPosition'); // corresponds to grid index
+    const finalSeason = localStorage.getItem('chosenSeason') || 'spring'; 
+    const finalPlant = localStorage.getItem('chosenPlant') || 'tree';
 
-  const payload = {
-    userId: "student-1",
-    plantType: finalPlant,
-    positionIndex: parseInt(finalPosition),
-    season: finalSeason,
-    timestamp: new Date().toISOString()
-  };
+    // save last planted for demo
+    let plantedTrees = JSON.parse(localStorage.getItem('allPlantedTrees')) || [];
+    plantedTrees.push({
+        pos: finalPosition,
+        season: finalSeason
+    });
+    localStorage.setItem('allPlantedTrees', JSON.stringify(plantedTrees));
 
-    //send to RestDB
+    localStorage.setItem('lastPlantedSeason', finalSeason);
+
+    const payload = {
+        userId: "student-1",
+        plantType: finalPlant,
+        positionIndex: parseInt(finalPosition),
+        season: finalSeason,
+        timestamp: new Date().toISOString()
+    };
+
+    // API call to save the plant data
     fetch("https://drsadrabbit-d6de.restdb.io/rest/ip-js-forest", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-apikey": "695ca6b37ba9c9d384784748",
-      },
-      body: JSON.stringify(payload)
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "x-apikey": "695ca6b37ba9c9d384784748",
+        },
+        body: JSON.stringify(payload)
     }).then(() => {
-      window.location.href = "forest.html";
+        // transition to season page
+        window.location.href = `${finalSeason}.html`; 
+    }).catch(err => {
+        console.error("API Error, but redirecting for demo...", err);
+        window.location.href = `${finalSeason}.html`;
     });
 }
 
